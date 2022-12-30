@@ -9,9 +9,12 @@ public class MainPage {
     private final WebDriver driver;
 
     //Локатор кнопки "Заказать", которая находится в шапке страницы
-    private static final By orderHeaderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
+    public static final By orderHeaderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
 
-    //Локатор кнопки первого вопроса в элементе аккардеон
+    //Локатор кнопки "Заказать", которая находится внутри страницы
+    public static final By orderPageButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+
+    //Локатор кнопки первого вопроса в элементе аккордеон
     public static final By buttonFirstQuestionInAccordion = By.xpath(".//div[@id='accordion__heading-0']");
 
     //Локатор открывающейся панели после нажатия на кнопку первого вопроса в элементе аккордеон
@@ -88,7 +91,7 @@ public class MainPage {
         this.driver = driver;
     }
 
-    public void ClickButtonQuestionOnAccordion(By elementLocator) {
+    public void clickButtonQuestionOnAccordion(By elementLocator) {
         WebElement element = driver.findElement(elementLocator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
         element.click();
@@ -98,8 +101,10 @@ public class MainPage {
         return driver.findElement(elementLocator).getText();
     }
 
-    public void clickOrderHeaderButton() {
-        driver.findElement(orderHeaderButton).click();
+    public void clickOrderButton(By elementLocator) {
+        WebElement element = driver.findElement(elementLocator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        element.click();
     }
 
 

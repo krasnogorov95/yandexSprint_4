@@ -3,6 +3,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 import pom.ConfirmOrderPopUp;
 import pom.MainPage;
 import pom.OrderPage;
@@ -12,6 +13,7 @@ public class OrderPositiveTest {
 
     @Rule
     public BrowserRule browserRule = new BrowserRule();
+    private final By button;
     private final String name;
     private final String lastName;
     private final String address;
@@ -20,7 +22,8 @@ public class OrderPositiveTest {
     private final String date;
 
 
-    public OrderPositiveTest(String name, String lastName, String address, String metro, String phoneNumber, String date) {
+    public OrderPositiveTest(By button, String name, String lastName, String address, String metro, String phoneNumber, String date) {
+        this.button = button;
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -31,10 +34,10 @@ public class OrderPositiveTest {
 
     @Parameterized.Parameters()
     public static Object[][] getData() {
-            return new Object[][] {
-                    {"Иван", "Иваанов", "Иванова 15", "Черкизовская", "88005553535", "05.12.2022"},
-                    {"Сидр", "Сидоров", "улица Сидорова, дом 4", "Сокольники", "+78005553535", "12.12.2022"},
-            };
+        return new Object[][] {
+                {MainPage.orderHeaderButton, "Иван", "Иваанов", "Иванова 15", "Черкизовская", "88005553535", "05.12.2022"},
+                {MainPage.orderPageButton, "Сидр", "Сидоров", "улица Сидорова, дом 4", "Сокольники", "+78005553535", "12.12.2022"},
+        };
     }
 
     @Test
@@ -42,8 +45,7 @@ public class OrderPositiveTest {
         MainPage mainPage = new MainPage(browserRule.getDriver());
         OrderPage orderPage = new OrderPage(browserRule.getDriver());
         ConfirmOrderPopUp confirmOrderPopUp = new ConfirmOrderPopUp(browserRule.getDriver());
-        browserRule.driver.get("https://qa-scooter.praktikum-services.ru");
-        mainPage.clickOrderHeaderButton();
+        mainPage.clickOrderButton(button);
         orderPage.inputFirstNameField(name);
         orderPage.inputLastNameField(lastName);
         orderPage.inputAddressField(address);

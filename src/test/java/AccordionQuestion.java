@@ -6,12 +6,13 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import pom.MainPage;
 
+
 @RunWith(Parameterized.class)
 public class AccordionQuestion {
 
     @Rule
     public BrowserRule browserRule = new BrowserRule();
-    //private WebDriver driver;
+
     private final By buttonLocator;
     private final By answerLocator;
     private final String expectedText;
@@ -21,12 +22,6 @@ public class AccordionQuestion {
         this.answerLocator = answerLocator;
         this.expectedText = expectedText;
     }
-
-    /*@Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-    } */
 
     @Parameterized.Parameters
     public static Object[][] getData() {
@@ -45,13 +40,8 @@ public class AccordionQuestion {
     @Test
     public void checkAsnwerInQuestionsIsCorrect() {
         MainPage mainPage = new MainPage(browserRule.getDriver());
-        browserRule.driver.get("https://qa-scooter.praktikum-services.ru");
-        mainPage.ClickButtonQuestionOnAccordion(buttonLocator);
+        mainPage.clickButtonQuestionOnAccordion(buttonLocator);
         Assert.assertEquals(expectedText, mainPage.getTextAnswerOnAccordion(answerLocator));
     }
 
-    /*@After
-    public void tearDown() {
-        driver.quit();
-    } */
 }
