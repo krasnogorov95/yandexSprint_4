@@ -1,1 +1,2 @@
-# sprintYandex4
+# Sprint_4
+Selenium, POM, BrowserRule, Parameterized
